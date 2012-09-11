@@ -184,7 +184,7 @@ pEffect SpellEffects[TOTAL_SPELL_EFFECTS]=
     &Spell::EffectUnused,                                   //127 SPELL_EFFECT_127                      future Prospecting spell, not have spells
     &Spell::EffectUnused,                                   //128 SPELL_EFFECT_128                      future SPELL_EFFECT_APPLY_AREA_AURA_FRIEND, not have spells
     &Spell::EffectUnused,                                   //129 SPELL_EFFECT_129                      future SPELL_EFFECT_APPLY_AREA_AURA_ENEMY, now only one test spell
-  //&Spell::EffectKingofTheGordok,                //130 SPELL_EFFECT_22799
+    &Spell::EffectKingofTheGordok,                          //130 SPELL_EFFECT_22799
 };
 
 void Spell::EffectEmpty(SpellEffectIndex /*eff_idx*/)
@@ -580,8 +580,10 @@ void Spell::EffectDummy(SpellEffectIndex eff_idx)
 
                         if (spellInfo->SpellFamilyName == SPELLFAMILY_ROGUE &&
                             spellInfo->Id != m_spellInfo->Id && GetSpellRecoveryTime(spellInfo) > 0)
+                        {
                             ((Player*)m_caster)->RemoveSpellCooldown((itr++)->first,true);
                             ++itr;
+                        }
                     }
                     return;
                 }
@@ -3759,6 +3761,11 @@ void Spell::EffectScriptEffect(SpellEffectIndex eff_idx)
 
                     return;
                 }
+                case 28560:                                 // Summon Blizzard
+                {
+                    m_caster->CastSpell(m_caster, 28561, true);
+                    return;
+                }
             }
             break;
         }
@@ -4976,13 +4983,16 @@ void Spell::EffectBind(SpellEffectIndex eff_idx)
 
 void Spell::EffectKingofTheGordok(SpellEffectIndex eff_idx)
 {
-  Player* player;
-    if (unitTarget->GetTypeId() != TYPEID_PLAYER)
-    return;
-    if (m_spellInfo->Id == 22799 && !unitTarget->HasAura(22799))
-      Player *_player = (Player*)m_caster;
-     player->setFaction(38);
-    //22799; 
-    //Player->SetFaction(38);
-    
+	Player* player;
+		if (unitTarget->GetTypeId() != TYPEID_PLAYER)
+		return;
+
+		if (m_spellInfo->Id == 22799 && !unitTarget->HasAura(22799))
+        {
+		    player = (Player*)m_caster;
+		    player->setFaction(38);
+		}
+		//22799; 
+		//Player->SetFaction(38);
+
 }
