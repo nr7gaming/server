@@ -5524,7 +5524,9 @@ void Player::CheckAreaExploreAndOutdoor()
                     XP = uint32(sObjectMgr.GetBaseXP(p->area_level)*sWorld.getConfig(CONFIG_FLOAT_RATE_XP_EXPLORE));
                 }
 
-                GiveXP( XP, NULL );
+                if(GetSession()->IsPremium())
+                XP *= sWorld.getConfig(CONFIG_FLOAT_RATE_XP_EXPLORE_PREMIUM);
+                GiveXP(XP, NULL);
                 SendExplorationExperience(area,XP);
             }
             DETAIL_LOG("PLAYER: Player %u discovered a new area: %u", GetGUIDLow(), area);
@@ -12253,9 +12255,11 @@ void Player::RewardQuest(Quest const *pQuest, uint32 reward, Object* questGiver,
 
     // Not give XP in case already completed once repeatable quest
     uint32 XP = q_status.m_rewarded ? 0 : uint32(pQuest->XPValue(this)*sWorld.getConfig(CONFIG_FLOAT_RATE_XP_QUEST));
+    if (GetSession()->IsPremium())
+        XP *= sWorld.getConfig(CONFIG_FLOAT_RATE_XP_QUEST_PREMIUM);
 
     if (getLevel() < sWorld.getConfig(CONFIG_UINT32_MAX_PLAYER_LEVEL))
-        GiveXP(XP , NULL);
+        GiveXP(XP, NULL);
     else
         ModifyMoney( int32(pQuest->GetRewMoneyMaxLevel() * sWorld.getConfig(CONFIG_FLOAT_RATE_DROP_MONEY)) );
 
