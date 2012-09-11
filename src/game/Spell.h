@@ -300,6 +300,8 @@ class Spell
         void EffectSpiritHeal(SpellEffectIndex eff_idx);
         void EffectSkinPlayerCorpse(SpellEffectIndex eff_idx);
         void EffectSummonDemon(SpellEffectIndex eff_idx);
+    // new von sev
+     void EffectKingofTheGordok(SpellEffectIndex eff_idx);
 
         Spell(Unit* caster, SpellEntry const *info, bool triggered, ObjectGuid originalCasterGUID = ObjectGuid(), SpellEntry const* triggeredBy = NULL);
         ~Spell();
