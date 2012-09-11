@@ -2878,14 +2878,13 @@ void Spell::EffectEnchantItemTmp(SpellEffectIndex eff_idx)
         return;
 
     uint32 enchant_id = m_spellInfo->EffectMiscValue[eff_idx];
-  /*
+	/*
     // Shaman Rockbiter Weapon
     if (eff_idx==EFFECT_INDEX_0 && m_spellInfo->Effect[EFFECT_INDEX_1]==SPELL_EFFECT_DUMMY)
     {
         int32 enchnting_damage = m_currentBasePoints[EFFECT_INDEX_1];
-
+		/* sevi auskommentiert
         // enchanting id selected by calculated damage-per-sec stored in Effect[1] base value
-    /* sevi auskommentiert
         // with already applied percent bonus from Elemental Weapons talent
         // Note: damage calculated (correctly) with rounding int32(float(v)) but
         // RW enchantments applied damage int32(float(v)+0.5), this create  0..1 difference sometime
@@ -2933,9 +2932,7 @@ void Spell::EffectEnchantItemTmp(SpellEffectIndex eff_idx)
                 return;
         }  // ende
     }
-  */
-    }
-
+	*/
     if (!enchant_id)
     {
         sLog.outError("Spell %u Effect %u (SPELL_EFFECT_ENCHANT_ITEM_TEMPORARY) have 0 as enchanting id",m_spellInfo->Id,eff_idx);
