@@ -3163,6 +3163,7 @@ void Aura::HandlePeriodicEnergize(bool apply, bool /*Real*/)
             A->m_modifier.m_auraname = SPELL_AURA_MOD_BASE_RESISTANCE_PCT;
         }
     }
+    m_isPeriodic = apply;
 }
 
 void Aura::HandleAuraPowerBurn(bool apply, bool /*Real*/)
